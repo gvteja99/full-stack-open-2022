@@ -18,12 +18,14 @@ const Content = (props) => {
   </div>)
 }
 
-const Total = (props) => (
+const Total = (props) => {
+  const total = props.parts.reduce((partialSum, a) => partialSum + a.exercises, 0)
+  return(
   <div>
-    <p><b>Number of exercises {props.parts.reduce((partialSum, a) => partialSum + a.exercises, 0)}</b></p>
+    <p><b>Number of exercises {total}</b></p>
   </div>
-)
-
+  )
+}
 
 const Course = (props) => {
   return (<div>
