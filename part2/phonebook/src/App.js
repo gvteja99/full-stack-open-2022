@@ -3,9 +3,10 @@ import Name from './components/Name'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040-1234567'}
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
 
   const containsObject = (obj, list) => {
@@ -22,20 +23,26 @@ const App = () => {
   const addNote = (event) => {
     event.preventDefault()
     const nameObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     
     if (containsObject(nameObject, persons)){
-      alert(`${newName} is already added to the phonebook`)
+      alert(`${newName} with the number ${newNumber} is already added to the phonebook`)
     } else {
       setPersons(persons.concat(nameObject))
     }
     setNewName('')
+    setNewNumber('')
   }
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
 
 
@@ -50,11 +57,17 @@ const App = () => {
         />
         </div>
         <div>
+          number: <input 
+          value={newNumber}
+          onChange={handleNumberChange}
+        />
+        </div>
+        <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(person => <Name key={person.name} name={person.name} />)}
+      {persons.map(person => <Name key={person.name} name={person.name} number={person.number} />)}
     </div>
   )
 }
