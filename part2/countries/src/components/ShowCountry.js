@@ -1,4 +1,5 @@
 import ListLanguages from "./ListLanguages";
+import GetWeather from "./GetWeather";
 
 const ShowCountry = ({country}) => {
     return (
@@ -28,7 +29,9 @@ const ShowCountry = ({country}) => {
                     alt={`Flag of ${country.name.common}`}
                     width={200}
                 />
-
+            </div>
+            <div>
+                <GetWeather country={country}/>
             </div>
         </div>
     )

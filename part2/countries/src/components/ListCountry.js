@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import ShowCountry from "./ShowCountry";
 
 const ListCountry = ({country}) => {
@@ -6,10 +6,10 @@ const ListCountry = ({country}) => {
     const [show, setShow] = useState('show');
     
     const handleClick = () => {
-        setShow(show=='show'?'hide':'show')
+        setShow(show==='show'?'hide':'show')
       }
     
-    if (show == 'show'){
+    if (show === 'show'){
         return (
             <div>
                 {countryName} <button onClick={handleClick}>{show}</button>  
