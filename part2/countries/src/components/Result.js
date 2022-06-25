@@ -1,5 +1,5 @@
 import ListCountry from "./ListCountry";
-import ListLanguages from "./ListLanguages";
+import ShowCountry from "./ShowCountry";
 
 const Result = ({newFilter, countries}) => {
 
@@ -13,43 +13,15 @@ const Result = ({newFilter, countries}) => {
         )
     } else if (filteredCountries.length <= 10 && filteredCountries.length > 1) {
         return (
-                <div>{filteredCountries.map(country => <ListCountry key = {country.name.official} country={country.name.common}/>)}</div>
+                <div>{filteredCountries.map(country => <ListCountry key = {country.name.official} country={country}/>)}</div>
         )
 
     } else if (filteredCountries.length == 1) {
-        const country = filteredCountries[0]
         return (
-            <div>
-                <h1>
-                    {country.name.common}
-                </h1>
                 <div>
-                    capital {country.capital[0]}
+                    <ShowCountry country={filteredCountries[0]}/>
                 </div>
-                <div>
-                    area {country.area}
-                </div>
-                <div>
-                    <h3>
-                        languages:
-                    </h3>
-                </div>
-                <div>
-                    <ul>
-                        {Object.values(country.languages).map(lang => <ListLanguages key={lang} lang={lang}/>)}
-                    </ul>
-                </div>
-                <div>
-                    <img 
-                        src={country.flags.png}
-                        alt={`Flag of ${country.name.common}`}
-                        width={200}
-                    />
-
-                </div>
-            </div>
         )
-
     } else if (filteredCountries.length == 0) {
         return (<div>No matches</div>)
     }
