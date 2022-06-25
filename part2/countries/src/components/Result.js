@@ -1,14 +1,5 @@
-const ListCountry = ({country}) => {
-    return (
-        <div>{country}</div>
-    )
-}
-
-const ListLanguages = ({lang}) => {
-    return (
-        <li>{lang}</li>
-    )
-}
+import ListCountry from "./ListCountry";
+import ListLanguages from "./ListLanguages";
 
 const Result = ({newFilter, countries}) => {
 
@@ -58,8 +49,6 @@ const Result = ({newFilter, countries}) => {
                 </div>
             </div>
         )
-
-
 
     } else if (filteredCountries.length == 0) {
         return (<div>No matches</div>)
