@@ -1,21 +1,15 @@
 import Name from './Name'
-import axios from 'axios'
 import { useEffect } from 'react'
-
+import contactServices from '../services/contact'
 
 
 
 const Persons = ({persons, setPersons, newFilter}) => {
 
-  const hook = () => {
-    axios.get('http://localhost:3001/persons').then(response => {
-                          const notes = response.data
-                          setPersons(notes);
-                        })
-      
-  }
-  
-  useEffect(hook, [])
+  useEffect(
+            () => {
+                    contactServices.getAllContacts().then(notes => setPersons(notes))
+                  }, []);
   
   if (persons.length==0) {
     return (<div></div>)

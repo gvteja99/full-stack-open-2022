@@ -1,4 +1,4 @@
-import axios from 'axios';
+import contactServices from '../services/contact'
 
 const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber}) => {
 
@@ -21,13 +21,11 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
         number: newNumber,
       }
   
-      axios
-      .post('http://localhost:3001/persons', nameObject)
-      .then(response => {
+      contactServices.createContact(nameObject).then(contacts => {
         if (containsObject(nameObject, persons)){
           alert(`${newName} with the number ${newNumber} is already added to the phonebook`)
         } else {
-          setPersons(persons.concat(response.data))
+          setPersons(persons.concat(contacts))
         }
         setNewName('')
         setNewNumber('')
