@@ -1,6 +1,6 @@
 import contactServices from '../services/contact'
 
-const Name = ({person}) => {
+const Name = ({person, setErrorMessage}) => {
   
   const deleteContact = () => {
 
@@ -8,7 +8,13 @@ const Name = ({person}) => {
       contactServices
       .deleteContact(person)
       .catch(error => {
-        console.log('Delete Failed')
+
+        setErrorMessage(`Information of ${person.name} has already been removed from the server`)
+
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 3000)
+
       })
     }
 

@@ -4,7 +4,7 @@ import contactServices from '../services/contact'
 
 
 
-const Persons = ({persons, setPersons, newFilter}) => {
+const Persons = ({persons, setPersons, newFilter, setErrorMessage}) => {
 
   useEffect(
             () => {
@@ -18,7 +18,7 @@ const Persons = ({persons, setPersons, newFilter}) => {
   return (<div>
     {persons
     .filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
-    .map(person => <Name key={person.id} person={person} setPersons={setPersons} persons={persons}/>)}
+    .map(person => <Name key={person.id} person={person} setErrorMessage={setErrorMessage}/>)}
     </div>
     )
 }

@@ -1,6 +1,6 @@
 import contactServices from '../services/contact'
 
-const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber}) => {
+const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber, setNotificationMessage}) => {
 
     const containsObject = (obj, list) => {
       var i;
@@ -27,6 +27,13 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
           setPersons(persons.concat(contacts))
           setNewName('')
           setNewNumber('')
+
+          setNotificationMessage(`Added ${newName}`)
+
+          setTimeout(() => {
+            setNotificationMessage('')
+          }, 3000)
+  
         })
       } else {
         if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
@@ -34,6 +41,12 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
             setPersons(persons.map(person => person.id !== hasObject ? person : contact))
             setNewName('')
             setNewNumber('')  
+            
+            setNotificationMessage(`Updated ${newName}`)
+
+            setTimeout(() => {
+              setNotificationMessage('')
+            }, 3000)
           })
         }
       } 
