@@ -9,7 +9,7 @@ const Persons = ({persons, setPersons, newFilter}) => {
   useEffect(
             () => {
                     contactServices.getAllContacts().then(notes => setPersons(notes))
-                  }, []);
+                  }, [persons]);
   
   if (persons.length==0) {
     return (<div></div>)
@@ -18,7 +18,7 @@ const Persons = ({persons, setPersons, newFilter}) => {
   return (<div>
     {persons
     .filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
-    .map(person => <Name key={person.id} name={person.name} number={person.number} />)}
+    .map(person => <Name key={person.id} person={person} setPersons={setPersons} persons={persons}/>)}
     </div>
     )
 }

@@ -11,9 +11,16 @@ const createContact = newObject => {
   return request.then(response => response.data)
 }
 
+const deleteContact = obj => {
+    const deleteURL = `${baseUrl}/${obj.id}`
+    const request = axios.delete(deleteURL)
+    return request.then(response => response.data)
+  }
+  
+
 // const update = (id, newObject) => {
 //   const request = axios.put(`${baseUrl}/${id}`, newObject)
 //   return request.then(response => response.data)
 // }
 
-export default { getAllContacts, createContact }
+export default { getAllContacts, createContact, deleteContact }
