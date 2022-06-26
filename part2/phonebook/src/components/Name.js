@@ -1,7 +1,6 @@
 import contactServices from '../services/contact'
-import { useEffect } from 'react'
 
-const Name = ({person, setPersons, persons}) => {
+const Name = ({person}) => {
   
   const deleteContact = () => {
 
@@ -11,7 +10,6 @@ const Name = ({person, setPersons, persons}) => {
       .catch(error => {
         console.log('Delete Failed')
       })
-      
     }
 
   }
