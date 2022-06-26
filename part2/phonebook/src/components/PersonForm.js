@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber}) => {
 
     const containsObject = (obj, list) => {
@@ -17,18 +19,20 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
       const nameObject = {
         name: newName,
         number: newNumber,
-        id: persons.length+1,
-        show: true
       }
   
-      
-      if (containsObject(nameObject, persons)){
-        alert(`${newName} with the number ${newNumber} is already added to the phonebook`)
-      } else {
-        setPersons(persons.concat(nameObject))
-      }
-      setNewName('')
-      setNewNumber('')
+      axios
+      .post('http://localhost:3001/persons', nameObject)
+      .then(response => {
+        if (containsObject(nameObject, persons)){
+          alert(`${newName} with the number ${newNumber} is already added to the phonebook`)
+        } else {
+          setPersons(persons.concat(response.data))
+        }
+        setNewName('')
+        setNewNumber('')
+      })
+  
     }
   
     const handleNameChange = (event) => {

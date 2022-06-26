@@ -8,11 +8,9 @@ import { useEffect } from 'react'
 const Persons = ({persons, setPersons, newFilter}) => {
 
   const hook = () => {
-    console.log('effect')
     axios.get('http://localhost:3001/persons').then(response => {
                           const notes = response.data
                           setPersons(notes);
-                          console.log(notes)
                         })
       
   }
@@ -22,8 +20,6 @@ const Persons = ({persons, setPersons, newFilter}) => {
   if (persons.length==0) {
     return (<div></div>)
   }
-
-  console.log('persons', persons)
 
   return (<div>
     {persons
