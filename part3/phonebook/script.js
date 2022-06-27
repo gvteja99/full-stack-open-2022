@@ -44,13 +44,6 @@ app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
-const generateId = () => {
-  const maxId = persons.length > 0
-    ? Math.max(...persons.map(n => n.id))
-    : 0
-  return maxId + 1
-}
-
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
@@ -58,10 +51,15 @@ app.post('/api/persons', (request, response) => {
     return response.status(400).json({ 
       error: 'field missing' 
     })
+  } else if (persons.filter(person => person.name === body.name).length != 0) {
+    return response.status(400).json({ 
+      error: 'name must be unique' 
+    })
   }
 
+  const max = 100000000000000000;
   const person = {
-    id: generateId(),
+    id: Math.floor(Math.random() * (max) ),
     name: body.name,
     number: body.number,
   }
@@ -77,26 +75,26 @@ app.get('/api/persons/:id', (request, response) => {
     person ? response.json(person) : response.status(404).end()
 })
 
-app.put('/api/persons/:id', (request, response) => {
-  const body = request.body
+// app.put('/api/persons/:id', (request, response) => {
+//   const body = request.body
 
-  console.log(body)
+//   console.log(body)
 
-  if (!body.name || !body.number) {
-    return response.status(400).json({ 
-      error: 'field missing' 
-    })
-  }
+//   if (!body.name || !body.number) {
+//     return response.status(400).json({ 
+//       error: 'field missing' 
+//     })
+//   }
 
-  const person = {
-    id: body.id,
-    name: body.name,
-    number: body.number,
-  }
+//   const person = {
+//     id: body.id,
+//     name: body.name,
+//     number: body.number,
+//   }
 
-  persons[body.id-1] = person
-  response.json(body)
-})
+//   persons[body.id-1] = person
+//   response.json(body)
+// })
 
 
 app.delete('/api/persons/:id', (request, response) => {
