@@ -1,7 +1,10 @@
 import contactServices from '../services/contact'
+import { useEffect } from 'react'
 
-const Name = ({person, setErrorMessage}) => {
+const Name = ({person, setErrorMessage, setToggle}) => {
   
+  let dtoggle = false;
+
   const deleteContact = () => {
 
     if (window.confirm(`Delete ${person.name} ?`)) {
@@ -16,9 +19,17 @@ const Name = ({person, setErrorMessage}) => {
         }, 3000)
 
       })
+
+      setToggle(true)
     }
 
   }
+
+  // useEffect(
+  //   () => {
+  //           contactServices.getAllContacts().then(notes => {setPersons(notes); dtoggle = false; console.log('deleteddddd')})
+  //         }, [dtoggle]);
+
 
   return (
       <p>

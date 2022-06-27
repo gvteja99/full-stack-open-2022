@@ -1,10 +1,18 @@
 const express = require('express')
 const app = express()
 const cors = require("cors")
+var morgan = require('morgan')
 
 const corsOptions = { credentials: true, origin: "http://localhost:3000" }
 
 app.use(cors(corsOptions))
+
+morgan.token('body', function getId (req) {
+  // console.log(JSON.stringify(obj))
+  return JSON.stringify(req.body)
+})
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 
 let persons = [
@@ -57,9 +65,8 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
-  const max = 100000000000000000;
   const person = {
-    id: Math.floor(Math.random() * (max) ),
+    id: body.id,
     name: body.name,
     number: body.number,
   }

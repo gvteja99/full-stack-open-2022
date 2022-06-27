@@ -14,6 +14,7 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('')
   const [notificationMessage, setNotificationMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [toggle, setToggle] = useState(false)
 
 
   return (
@@ -31,9 +32,10 @@ const App = () => {
           setNewName={setNewName}
           setNewNumber={setNewNumber}
           setNotificationMessage={setNotificationMessage}
+          setToggle={setToggle}
         />
       <h2>Numbers</h2>
-        <Persons persons={persons} setPersons={setPersons} newFilter={newFilter} setErrorMessage={setErrorMessage} />
+        <Persons persons={persons} setPersons={setPersons} newFilter={newFilter} setErrorMessage={setErrorMessage} toggle={toggle} setToggle={setToggle}/>
     </div>
   )
 }

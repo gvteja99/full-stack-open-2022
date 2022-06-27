@@ -1,20 +1,26 @@
 import contactServices from '../services/contact'
+import { useEffect } from 'react'
 
-const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber, setNotificationMessage}) => {
+const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber, setNotificationMessage, setToggle}) => {
 
-    const containsObject = (obj, list) => {
-      var i;
-      for (i = 0; i < list.length; i++) {
-          if (list[i]["name"] === obj["name"]) {
-            return list[i]["number"] === obj["number"]?"exists":list[i].id;
-          }           
-      }
-      return "add";
-    }
+    // const containsObject = (obj, list) => {
+    //   var i;
+    //   for (i = 0; i < list.length; i++) {
+    //       if (list[i]["name"] === obj["name"]) {
+    //         return list[i]["number"] === obj["number"]?"exists":list[i].id;
+    //       }           
+    //   }
+    //   return "add";
+    // }
+
+    let toggle = false;
   
     const addNote = (event) => {
       event.preventDefault()
+
+      const max = 100000000000000000;
       const nameObject = {
+        id: Math.floor(Math.random() * (max) ),
         name: newName,
         number: newNumber,
       }
@@ -50,6 +56,7 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
         //   })
         // }
       // } 
+      setToggle(true);
     }
   
     const handleNameChange = (event) => {
@@ -60,6 +67,11 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
       setNewNumber(event.target.value)
     }
     
+    useEffect(
+      () => {
+              contactServices.getAllContacts().then(notes => {setPersons(notes); toggle = false})
+            }, [toggle]);
+
     return (      
       <form onSubmit={addNote}>
         <div>
