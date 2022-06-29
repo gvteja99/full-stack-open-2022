@@ -11,7 +11,7 @@ const Persons = ({persons, setPersons, newFilter, setErrorMessage, toggle, setTo
                     contactServices.getAllContacts().then(notes => {setPersons(notes); setToggle(false)})
                   }, [toggle]);
   
-  if (persons.length==0) {
+  if (persons.length===0) {
     return (<div></div>)
   }
   
