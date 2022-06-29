@@ -3,10 +3,9 @@ const app = express()
 const cors = require("cors")
 var morgan = require('morgan')
 
-const corsOptions = { credentials: true, origin: "*" }
+// const corsOptions = { credentials: true, origin: "*" }
 
-app.use(cors(corsOptions))
-app.use(express.static('build'))
+app.use(cors())
 
 
 morgan.token('body', function getId (req) {
@@ -41,6 +40,7 @@ let persons = [
             ]
 
 app.use(express.json())
+app.use(express.static('build'))
 
 app.get('/', (request, response) => {
   response.send('<h1>Hellowow World!</h1>')
@@ -116,6 +116,6 @@ app.delete('/api/persons/:id', (request, response) => {
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log(corsOptions);
+    // console.log(corsOptions);
   console.log(`Server running on port ${PORT}`)
 })
