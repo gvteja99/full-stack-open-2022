@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-api": "node script.js",
+    "start-api": "node index.js",
     "dev": "nodemon index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -45,5 +45,9 @@
   "devDependencies": {
     "json-server": "^0.17.0",
     "nodemon": "^2.0.18"
+  },
+  "resolutions": {
+    "mini-css-extract-plugin": "2.4.5"
   }
+
 }

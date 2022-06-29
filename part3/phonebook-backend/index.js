@@ -6,6 +6,8 @@ var morgan = require('morgan')
 const corsOptions = { credentials: true, origin: "*" }
 
 app.use(cors(corsOptions))
+app.use(express.static('build'))
+
 
 morgan.token('body', function getId (req) {
   // console.log(JSON.stringify(obj))
