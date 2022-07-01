@@ -6,6 +6,7 @@
     "mongoose": "^6.4.1"
   },
   "devDependencies": {
+    "jest": "^28.1.2",
     "nodemon": "^2.0.18"
   },
   "name": "blog",
@@ -13,9 +14,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "jest": {
+    "testEnvironment": "node"
+  }
 }
