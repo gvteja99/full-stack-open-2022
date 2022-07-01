@@ -1,12 +1,10 @@
 const config = require('./utils/config')
-const http = require('http')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const Blog = require('./models/blog')
 const blogsRouter = require('./controllers/blog')
+const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
-
 const mongoose = require('mongoose')
 
 mongoose.connect(config.MONGODB_URI)
@@ -19,7 +17,12 @@ mongoose.connect(config.MONGODB_URI)
 
 app.use(cors())
 app.use(express.json())
+app.use(middleware.requestLogger)
+
 app.use('/api/blogs', blogsRouter)
+
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 app.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`)
