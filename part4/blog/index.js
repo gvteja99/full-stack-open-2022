@@ -1,5 +1,4 @@
-require('dotenv').config()
-
+const config = require('./utils/config')
 const http = require('http')
 const express = require('express')
 const app = express()
@@ -7,8 +6,14 @@ const cors = require('cors')
 const Blog = require('./models/blog')
 
 const mongoose = require('mongoose')
-const mongoUrl = process.env['MONGODB_URI']
-mongoose.connect(mongoUrl)
+
+mongoose.connect(config.MONGODB_URI)
+    .then(() => {
+    console.log('connected to MongoDB')
+    })
+    .catch((error) => {
+    console.error('error connecting to MongoDB:', error.message)
+    })
 
 app.use(cors())
 app.use(express.json())
@@ -31,7 +36,6 @@ app.post('/api/blogs', (request, response) => {
     })
 })
 
-const PORT = 3003
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+app.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`)
 })
