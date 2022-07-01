@@ -1,8 +1,8 @@
-require('dotenv').config();
+require('dotenv').config()
 
 const express = require('express')
 const app = express()
-const cors = require("cors")
+const cors = require('cors')
 var morgan = require('morgan')
 const mongoose = require('mongoose')
 
@@ -13,13 +13,13 @@ app.use(express.json())
 
 const Person = require('./models/person')
 
-var contacts = [];
+var contacts = []
 
 morgan.token('body', function getId (req) {
   return JSON.stringify(req.body)
 })
 
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 app.get('/', (request, response) => {
   response.send('<h1>Hellowow World!</h1>')
@@ -33,9 +33,9 @@ app.get('/info', (request, response) => {
 
 app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(persons => {
-    contacts = persons;
+    contacts = persons
     return response.json(persons)
-    }).catch(error => next(error))
+}).catch(error => next(error))
 })
 
 
@@ -43,8 +43,8 @@ app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   if (!body.name || !body.number) {
-    return response.status(400).json({ 
-      error: 'field missing' 
+    return response.status(400).json({
+      error: 'field missing'
     })
   }
 
@@ -61,11 +61,11 @@ app.post('/api/persons', (request, response, next) => {
 
 
 app.get('/api/persons/:id', (request, response, next) => {
-    // const id = request.params.id
-    // const person = contacts.find(person => person.id === id)
-    // person ? response.json(person) : response.status(404).end()
+  // const id = request.params.id
+  // const person = contacts.find(person => person.id === id)
+  // person ? response.json(person) : response.status(404).end()
 
-    Person.findById(request.params.id)
+  Person.findById(request.params.id)
     .then(person => {if (person) {
       response.json(person)
     } else {
@@ -78,35 +78,36 @@ app.put('/api/persons/:id', (request, response, next) => {
   const { id, name, number } = request.body
 
   if (!name || !number) {
-    return response.status(400).json({ 
-      error: 'field missing' 
+    return response.status(400).json({
+      error: 'field missing'
     })
   }
 
-  Person.findByIdAndUpdate(id, 
-    {name, number}, 
-    {new: true, runValidators: true, context: 'query', runValidators: true})
-  .then(updatedNote => {
-    response.json(updatedNote)
-  })
-  .catch(error => next(error))
+  Person.findByIdAndUpdate(id,
+    { name, number },
+    { new: true, runValidators: true, context: 'query'})
+    .then(updatedNote => {
+      response.json(updatedNote)
+    })
+    .catch(error => next(error))
 
 })
 
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    const doc_id = request.params.id
-    Person.findOneAndRemove({_id: doc_id}).then(person => {if (person){
-                                                              person.remove()
-                                                              return response.status(204).end()
-                                                            } else {
-                                                              return response.status(403).json({ 
-                                                                error: 'Already deleted' 
-                                                              })
-                                                            }}).catch(error => next(error))
+  const doc_id = request.params.id
+  Person.findOneAndRemove({_id: doc_id}).then(person =>
+  {
+    if (person){
+      person.remove()
+      return response.status(204).end()
+    } else {
+      return response.status(403).json({
+        error: 'Already deleted'
+      })
+    }}).catch(error => next(error))
 
-  
-  })  
+})
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
@@ -121,10 +122,9 @@ const errorHandler = (error, request, response, next) => {
 }
 
 app.use(errorHandler)
-  
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    // console.log(corsOptions);
+  // console.log(corsOptions);
   console.log(`Server running on port ${PORT}`)
 })
