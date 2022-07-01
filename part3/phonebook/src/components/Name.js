@@ -11,7 +11,8 @@ const Name = ({person, setErrorMessage, setToggle}) => {
       contactServices
       .deleteContact(person)
       .catch(error => {
-
+        
+        // console.log(error.response.data.error);
         setErrorMessage(`Information of ${person.name} has already been removed from the server`)
 
         setTimeout(() => {

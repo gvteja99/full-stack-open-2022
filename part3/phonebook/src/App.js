@@ -33,6 +33,7 @@ const App = () => {
           setNewNumber={setNewNumber}
           setNotificationMessage={setNotificationMessage}
           setToggle={setToggle}
+          setErrorMessage={setErrorMessage}
         />
       <h2>Numbers</h2>
         <Persons persons={persons} setPersons={setPersons} newFilter={newFilter} setErrorMessage={setErrorMessage} toggle={toggle} setToggle={setToggle}/>

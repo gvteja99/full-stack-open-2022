@@ -1,7 +1,7 @@
 import contactServices from '../services/contact'
 import { useEffect } from 'react'
 
-const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber, setNotificationMessage, setToggle}) => {
+const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNewNumber, setNotificationMessage, setToggle, setErrorMessage}) => {
 
     const containsObject = (obj, list) => {
       var i;
@@ -41,6 +41,15 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
           }, 3000)
 
         })
+        .catch(error => {
+          setErrorMessage(error.response.data.error)
+
+          setTimeout(() => {
+            setErrorMessage('')
+          }, 3000)
+
+        })
+
       } else {
         if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)) {
           contactServices.updateContact({ ...nameObject, id: hasObject}).then(contact => {
@@ -53,6 +62,14 @@ const PersonForm = ({newName, newNumber, persons, setPersons, setNewName, setNew
             setTimeout(() => {
               setNotificationMessage('')
             }, 3000)
+          })
+          .catch(error => {
+            setErrorMessage(error.response.data.error)
+
+            setTimeout(() => {
+              setErrorMessage('')
+            }, 3000)
+
           })
         }
       } 

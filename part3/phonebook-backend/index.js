@@ -74,23 +74,18 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 })
 
-app.put('/api/persons/:id', (request, response) => {
-  const body = request.body
+app.put('/api/persons/:id', (request, response, next) => {
+  const { id, name, number } = request.body
 
-  console.log(body)
-
-  if (!body.name || !body.number) {
+  if (!name || !number) {
     return response.status(400).json({ 
       error: 'field missing' 
     })
   }
 
-  const person = {
-    name: body.name,
-    number: body.number,
-  }
-
-  Person.findByIdAndUpdate(body.id, person, {new: true})
+  Person.findByIdAndUpdate(id, 
+    {name, number}, 
+    {new: true, runValidators: true, context: 'query', runValidators: true})
   .then(updatedNote => {
     response.json(updatedNote)
   })
@@ -105,7 +100,9 @@ app.delete('/api/persons/:id', (request, response, next) => {
                                                               person.remove()
                                                               return response.status(204).end()
                                                             } else {
-                                                              return response.status(403).end()
+                                                              return response.status(403).json({ 
+                                                                error: 'Already deleted' 
+                                                              })
                                                             }}).catch(error => next(error))
 
   
@@ -116,7 +113,9 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
+  }
 
   next(error)
 }
