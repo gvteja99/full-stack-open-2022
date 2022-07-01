@@ -1,6 +1,6 @@
 const listHelper = require('../utils/list_helper')
 
-describe('highest likes', () => {
+describe('most blogs', () => {
     const listWithOneBlog = [
       {
         _id: '5a422aa71b54a676234d17f8',
@@ -13,15 +13,8 @@ describe('highest likes', () => {
     ]
   
     test('when list has only one blog, equals the likes of that', () => {
-      const result = listHelper.favoriteBlog(listWithOneBlog)
-      expect(result).toEqual({
-        _id: '5a422aa71b54a676234d17f8',
-        title: 'Go To Statement Considered Harmful',
-        author: 'Edsger W. Dijkstra',
-        url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
-        likes: 5,
-        __v: 0
-      })
+      const result = listHelper.mostBlogs(listWithOneBlog)
+      expect(result).toEqual({"Edsger W. Dijkstra": 1})
     })
 
     const blogs = [
@@ -76,15 +69,8 @@ describe('highest likes', () => {
       ]      
 
     test('when the list has multiple blogs', () => {
-        const result = listHelper.favoriteBlog(blogs)
-        expect(result).toEqual({
-            _id: "5a422b3a1b54a676234d17f9",
-            title: "Canonical string reduction",
-            author: "Edsger W. Dijkstra",
-            url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
-            likes: 12,
-            __v: 0
-          })
+        const result = listHelper.mostBlogs(blogs)
+        expect(result).toEqual({"Robert C. Martin": 3})
       })
   
   })
