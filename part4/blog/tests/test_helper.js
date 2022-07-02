@@ -5,14 +5,14 @@ const initialBlogs = [
     {
         "title": "Kathi Netthuru",
         "author": "John Grisham",
-        "url": "hphp://www.kattinetthuru.kamist",
-        "likes": 108,
+        "url": "http://www.kattinetthuru.org",
+        "likes": 108
     },
     {
         "title": "Yo Vizag",
-        "author": "Panileni Gunta",
-        "url": "hphp://www.vizag.yo",
-        "likes": 0,
+        "author": "Jacob Smith",
+        "url": "http://www.vizag.yo",
+        "likes": 6
     }
 ]
 

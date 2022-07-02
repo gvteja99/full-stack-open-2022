@@ -6,21 +6,6 @@ const Blog = require('../models/blog')
 const helper = require('./test_helper')
 
 
-const initialBlogs = [
-    {
-        "title": "Kathi Netthuru",
-        "author": "John Grisham",
-        "url": "http://www.kattinetthuru.org",
-        "likes": 108,
-    },
-    {
-        "title": "Yo Vizag",
-        "author": "Jacob Smith",
-        "url": "http://www.vizag.yo",
-        "likes": 6,
-    }
-]
-
 beforeEach(async () => {
     await Blog.deleteMany({})
     const blogObjects = helper.initialBlogs.map(blog => new Blog(blog))
@@ -143,7 +128,26 @@ test('0 default likes', async () => {
       expect(blogsAtEnd[blogsAtEnd.length-1]['likes']).toBe(0)
   })
 
+test('likes can be changed', async () => {
+    const newBlog = {
+        title: 'Yo Vizag',
+        author: 'Jacob Smith',
+        url: 'http://www.vizag.yo',
+        likes: 116,
+    }
   
+    const blogsAtEnd = await helper.blogsInDb()
+
+    await api
+      .put(`/api/blogs/${blogsAtEnd[blogsAtEnd.length-1]["id"]}`)
+      .send(newBlog)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+      
+    const response = await api.get(`/api/blogs/${blogsAtEnd[blogsAtEnd.length-1]["id"]}`)
+    expect(response.body["likes"]).toBe(newBlog["likes"])
+})
+
 test('a blog can be deleted', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
