@@ -44,12 +44,12 @@ const remove = (id) => {
 
 }
 
-const blogService = { 
-  getAll, 
-  create, 
-  update, 
+const blogService = {
+  getAll,
+  create,
+  update,
   remove,
   setToken
 }
 
-export default blogService;
+export default blogService

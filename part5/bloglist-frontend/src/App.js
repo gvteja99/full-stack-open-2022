@@ -6,22 +6,21 @@ import LoginForm from './components/LoginForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('') 
-  const [author, setAuthor] = useState('') 
-  const [url, setUrl] = useState('') 
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
   const [toggle, setToggle] = useState(false)
   const [notificationMessage, setNotificationMessage] = useState('')
-  
 
   useEffect(() => {
     if (user){
-    blogService.getAll().then(blogs =>{
-      setBlogs( blogs );
-    })  }
-  }, [toggle])
+      blogService.getAll().then(blogs => {
+        setBlogs( blogs )
+      })  }
+  }, [toggle, user])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
@@ -36,8 +35,8 @@ const App = () => {
   return (
     <div>
       {user === null ?
-        <LoginForm 
-          notificationMessage={notificationMessage} 
+        <LoginForm
+          notificationMessage={notificationMessage}
           setNotificationMessage={setNotificationMessage}
           username={username}
           setUsername={setUsername}
@@ -47,7 +46,7 @@ const App = () => {
           toggle={toggle}
           setUser={setUser}
         /> :
-        <Blog 
+        <Blog
           blogs={blogs}
           title={title}
           setTitle={setTitle}
