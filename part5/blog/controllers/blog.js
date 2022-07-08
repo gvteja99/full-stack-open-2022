@@ -9,11 +9,11 @@ require('express-async-errors')
 blogsRouter.get('/', async (request, response) => {
 
     const decodedToken = request.token
-    if (decodedToken && !decodedToken.id) {
+    if (!decodedToken || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' })
     }
 
-    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
+    const blogs = await Blog.find({user: decodedToken.id}).populate('user', { username: 1, name: 1 })
     return response.json(blogs)
   })
   

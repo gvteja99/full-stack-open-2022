@@ -26,14 +26,29 @@ const create = async newObject => {
 }
 
 const update = (id, newObject) => {
-  const request = axios.put(`${ baseUrl }/${id}`, newObject)
+  const request = axios.put(`${ baseUrl }/${id}`, newObject, {
+    headers: {
+      'Authorization': token
+    }
+  })
   return request.then(response => response.data)
+}
+
+const remove = (id) => {
+  const request = axios.delete(`${ baseUrl }/${id}`, {
+    headers: {
+      'Authorization': token
+    }
+  })
+  return request.then(response => response.data)
+
 }
 
 const blogService = { 
   getAll, 
   create, 
   update, 
+  remove,
   setToken
 }
 
